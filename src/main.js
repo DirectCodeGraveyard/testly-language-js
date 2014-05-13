@@ -1,0 +1,48 @@
+var fs = require("fs-utils");
+
+var program = require("commander");
+var path = require("path");
+require("colors");
+
+var nodefs = require("fs");
+
+program
+    .version("0.0.1")
+    .option("--testdir", "Specifies a Test Directory")
+    .option("--json", "Specifies the file to write a JSON report to");
+
+var testdir = "tests";
+var jsonReport = "report.json";
+
+program.on('--testdir', function (val) {
+    testdir = val;
+});
+
+program.on('--json', function (val) {
+    jsonReport = val;
+});
+
+program.parse(process.argv);
+
+var listener = function (event) {
+    if (event.type == "passed") {
+        console.log("[" + event.suiteName + "]" + "[" + event.testName + "] " + "Passed".green);
+    } else if (event.type == "failed") {
+        console.log("[" + event.testName + "] " + "Failed".red);
+    }
+};
+
+var tests = [];
+
+nodefs.readdirSync(testdir).forEach(function (it) {
+    tests.push(path.resolve(testdir, it));
+});
+
+var testly = require("./testly/run.js")({
+    tests: tests,
+    listeners: [listener]
+});
+
+var results = testly.run();
+
+fs.writeJSON(jsonReport, results, {indention: 4});

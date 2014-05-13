@@ -1,0 +1,37 @@
+{
+  "name": "testly",
+  "version": "0.0.1",
+  "description": "Testly is a polygot testing framework with implementations for many languages.",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/testly/language-js.git"
+  },
+  "keywords": [
+    "tests",
+    "testing",
+    "testly",
+    "testing",
+    "framework",
+    "polygot",
+    "simple",
+    "testing"
+  ],
+  "author": "Kenneth Endfinger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/testly/language-js/issues"
+  },
+  "dependencies": {
+    "async": "~0.8.0",
+    "colors": "~0.6.2",
+    "commander": "~2.2.0",
+    "fs-utils": "~0.4.3"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5"
+  }
+}
