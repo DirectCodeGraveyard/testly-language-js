@@ -1,9 +1,0 @@
-{
-  "tests": [
-    {
-      "suiteName": "Basic",
-      "testName": "Passing Test",
-      "state": "failed"
-    }
-  ]
-}
