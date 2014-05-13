@@ -12,14 +12,14 @@ program
     .option("--json", "Specifies the file to write a JSON report to");
 
 var testdir = "tests";
-var jsonReport = "report.json";
+var jsonReport;
 
 program.on('--testdir', function (val) {
     testdir = val;
 });
 
 program.on('--json', function (val) {
-    jsonReport = val;
+    jsonReport = val || "report.json";
 });
 
 program.parse(process.argv);
@@ -45,4 +45,7 @@ var testly = require("./testly/run.js")({
 
 var results = testly.run();
 
-fs.writeJSON(jsonReport, results, {indention: 4});
+if (typeof jsonReport !== "undefined") {
+    console.log("Creating JSON Report".blue);
+    fs.writeJSON(jsonReport, results, {indention: 4});
+}
