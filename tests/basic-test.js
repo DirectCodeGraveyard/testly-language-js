@@ -1,4 +1,4 @@
-var assert = require("assert");
+var test = require("./../src/lib.js").test;
 
 module.exports = function (suite) {
     var i = 0;
@@ -10,6 +10,17 @@ module.exports = function (suite) {
     });
     
     suite.define("Passing Test", function () {
-        assert.equal(i, 1, "Expected 1, but got " + i);
+        test.that(i).is(1);
+    });
+    
+    suite.define("Failing Test", function () {
+        test.fail();
+    });
+    
+    suite.define("Assertion Test", function() {
+        test.that("5").isNot(5);
+        test.that("Go").is("Go");
+        test.that(5).is(5).and().isLessThan(6);
+        test.that("Hello World").doesContain("Hello");
     });
 };

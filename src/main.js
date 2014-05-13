@@ -29,6 +29,7 @@ var listener = function (event) {
         console.log("[" + event.suiteName + "]" + "[" + event.testName + "] " + "Passed".green);
     } else if (event.type == "failed") {
         console.log("[" + event.testName + "] " + "Failed".red);
+        console.log(event.err);
     }
 };
 

@@ -2,7 +2,7 @@
   "name": "testly",
   "version": "0.0.1",
   "description": "Testly is a polygot testing framework with implementations for many languages.",
-  "main": "src/main.js",
+  "main": "src/lib.js",
   "scripts": {
     "test": "node ./node_modules/grunt/grunt.js test"
   },
