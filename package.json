@@ -4,7 +4,7 @@
   "description": "Testly is a polygot testing framework with implementations for many languages.",
   "main": "src/main.js",
   "scripts": {
-    "test": "grunt test"
+    "test": "node ./node_modules/grunt/grunt.js test"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "fs-utils": "~0.4.3"
   },
   "devDependencies": {
-    "grunt": "~0.4.5"
+    "grunt": "~0.4.5",
+    "shelljs": "~0.3.0"
   }
 }
