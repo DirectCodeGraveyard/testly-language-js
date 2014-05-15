@@ -9,14 +9,22 @@ var yargs = require('yargs')
     .describe("testdir", "Directory to find Tests")
     .alias("d", "testdir")
     .alias("h", "help")
-    .describe("help", "Prints this Help Message");
+    .describe("help", "Prints this Help Message")
+    .describe("debug", "Enables Debugging");
 
 var argv = yargs.argv;
+
+var debug = argv.debug;
 
 if (argv.help) {
     yargs.showHelp();
     return;
 }
+
+console.debug = function (message) {
+    if (debug)
+        console.log("[Debugging] " + message);
+};
 
 var path = require("path");
 require("colors");
@@ -54,4 +62,5 @@ var results = testly.run();
 if (argv.json) {
     console.log("Creating JSON Report".blue);
     fs.writeJSON(typeof argv.json != "boolean" ? argv.json : "report.json", results, {indention: 4});
+    console.debug("JSON Report Created".blue);
 }
