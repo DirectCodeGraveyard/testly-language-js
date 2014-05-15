@@ -7,7 +7,7 @@
     "test": "node ./node_modules/grunt/grunt.js test"
   },
   "bin": {
-     "testlyjs": "./src/main.js"
+    "testlyjs": "./src/main.js"
   },
   "repository": {
     "type": "git",
@@ -31,8 +31,8 @@
   "dependencies": {
     "async": "~0.8.0",
     "colors": "~0.6.2",
-    "commander": "~2.2.0",
-    "fs-utils": "~0.4.3"
+    "fs-utils": "~0.4.3",
+    "yargs": "~1.2.2"
   },
   "devDependencies": {
     "grunt": "~0.4.5",

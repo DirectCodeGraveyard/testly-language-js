@@ -1,4 +1,5 @@
 var fs = require("fs-utils");
+var vm = require("vm");
 
 var Testly = module.exports = function (config) {
     this.config = config || {};
@@ -75,6 +76,7 @@ Testly.prototype.run = function () {
             });
         });
     });
+    
     return {
         tests: results
     };

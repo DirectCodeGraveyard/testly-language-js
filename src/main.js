@@ -1,43 +1,42 @@
 #!/usr/bin/env node
 var fs = require("fs-utils");
 
-var program = require("commander");
+var yargs = require('yargs')
+    .usage("Run your tests like there is no tomorrow.\nUsage: testly [options]")
+    .example("testly --testdir tests/ --json", "Run the tests in tests/ and output a JSON report to report.json")
+    .default("testdir", "tests/")
+    .default("json", false)
+    .describe("testdir", "Directory to find Tests")
+    .alias("d", "testdir")
+    .alias("h", "help")
+    .describe("help", "Prints this Help Message");
+
+var argv = yargs.argv;
+
+if (argv.help) {
+    yargs.showHelp();
+    return;
+}
+
 var path = require("path");
 require("colors");
 
 var nodefs = require("fs");
 
-program
-    .version("0.0.4")
-    .option("--testdir", "Specifies a Test Directory")
-    .option("--json", "Specifies the file to write a JSON report to");
-
-var testdir = "tests";
-var jsonReport;
-
-program.on('--testdir', function (val) {
-    testdir = val;
-});
-
-program.on('--json', function (val) {
-    jsonReport = val || "report.json";
-});
-
-program.parse(process.argv);
-
 var listener = function (event) {
     if (event.type == "passed") {
         console.log("[" + event.suiteName + "]" + "[" + event.testName + "] " + "Passed".green);
     } else if (event.type == "failed") {
+        var err = event.err;
+        console.log("[" + event.testName + "] " + err.message);
         console.log("[" + event.testName + "] " + "Failed".red);
-        console.log(event.err);
     }
 };
 
 var tests = [];
 
-nodefs.readdirSync(testdir).forEach(function (it) {
-    tests.push(path.resolve(testdir, it));
+nodefs.readdirSync(argv.testdir).forEach(function (it) {
+    tests.push(path.resolve(argv.testdir, it));
 });
 
 var testly = require("./testly/run.js")({
@@ -47,7 +46,7 @@ var testly = require("./testly/run.js")({
 
 var results = testly.run();
 
-if (typeof jsonReport !== "undefined") {
+if (argv.json) {
     console.log("Creating JSON Report".blue);
-    fs.writeJSON(jsonReport, results, {indention: 4});
+    fs.writeJSON(typeof argv.json != "boolean" ? argv.json : "report.json", results, {indention: 4});
 }
