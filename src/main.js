@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var fs = require("fs-utils");
 
 var program = require("commander");
@@ -7,7 +8,7 @@ require("colors");
 var nodefs = require("fs");
 
 program
-    .version("0.0.1")
+    .version("0.0.4")
     .option("--testdir", "Specifies a Test Directory")
     .option("--json", "Specifies the file to write a JSON report to");
 
