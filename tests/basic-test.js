@@ -22,5 +22,7 @@ module.exports = function (suite) {
         test.that("Go").is("Go");
         test.that(5).is(5).and().isLessThan(6);
         test.that("Hello World").doesContain("Hello");
+        test.that(6).isGreaterThan(5);
+        test.that(6).isGreaterThan(5).and().isLessThan(7);
     });
 };

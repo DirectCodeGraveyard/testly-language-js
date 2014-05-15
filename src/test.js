@@ -6,7 +6,7 @@ var AssertThat = function (actual) {
         if (actual != expected) {
             throw new Error("Expected '" + expected + "', but got '" + actual + "'");
         }
-        return;
+        return this;
     };
     
     this.isNot = function (expected) {
@@ -16,24 +16,32 @@ var AssertThat = function (actual) {
         return this;
     };
     
-    this.and = function () {};
+    this.and = function (b) {
+        if (typeof b !== "undefined" && !(actual && b)) {
+            throw new Error("Expected true, but got false");
+        }
+        return this;
+    };
     
     this.isLessThan = function (greatest) {
         if (!(actual < greatest)) {
             throw new Error("Expected '" + actual + "' to be less than '" + greatest + "'");
         }
+        return this;
     };
     
     this.isGreaterThan = function (least) {
         if (!(actual > least)) {
             throw new Error("Expected '" + actual + "' to be greater than '" + least + "'");
         }
+        return this;
     };
     
     this.doesContain = function (part) {
         if (actual.toString().indexOf(part) == -1) {
             throw new Error("Expected '" + actual + "' to contains '" + part + "'");
         }
+        return this;
     };
 };
 
