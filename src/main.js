@@ -23,6 +23,11 @@ require("colors");
 
 var nodefs = require("fs");
 
+if (!fs.exists(argv.testdir) || !fs.isDir(argv.testdir)) {
+    console.error("ERROR".red + ": The directory '" + argv.testdir + "' does not exist or is not a directory!");
+    return;
+}
+
 var listener = function (event) {
     if (event.type == "passed") {
         console.log("[" + event.suiteName + "]" + "[" + event.testName + "] " + "Passed".green);
