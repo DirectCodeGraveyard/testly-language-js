@@ -1,42 +1,43 @@
 {
-    "name": "testly",
-    "version": "0.1.0",
-    "description": "Testly is a polyglot testing framework with implementations for many languages.",
-    "main": "src/lib.js",
-    "scripts": {
-        "test": "node -e \"var g = require('grunt'); g.cli.tasks = ['test']; g.cli()\""
-    },
-    "bin": {
-        "testlyjs": "./src/main.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/testly/lang-node.git"
-    },
-    "keywords": [
-        "tests",
-        "testing",
-        "testly",
-        "testing",
-        "framework",
-        "polyglot",
-        "simple",
-        "testing"
-    ],
-    "author": "Kenneth Endfinger",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/testly/lang-node/issues"
-    },
-    "dependencies": {
-        "async": "~0.8.0",
-        "colors": "~0.6.2",
-        "fs-utils": "~0.4.3",
-        "yargs": "~1.2.2"
-    },
-    "devDependencies": {
-        "grunt": "~0.4.5",
-        "shelljs": "~0.3.0",
-        "semver": "~2.3.0"
-    }
+  "name": "testly",
+  "version": "0.1.0",
+  "description": "Testly is a polyglot testing framework with implementations for many languages.",
+  "main": "src/lib.js",
+  "scripts": {
+    "test": "node -e \"var g = require('grunt'); g.cli.tasks = ['test']; g.cli()\""
+  },
+  "bin": {
+    "testlyjs": "./src/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/testly/lang-node.git"
+  },
+  "keywords": [
+    "tests",
+    "testing",
+    "testly",
+    "testing",
+    "framework",
+    "polyglot",
+    "simple",
+    "testing"
+  ],
+  "author": "Kenneth Endfinger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/testly/lang-node/issues"
+  },
+  "dependencies": {
+    "async": "~0.8.0",
+    "colors": "~0.6.2",
+    "fs-utils": "~0.4.3",
+    "yargs": "~1.2.2"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "jshint": "^2.5.1",
+    "semver": "~2.3.0",
+    "shelljs": "~0.3.0"
+  }
 }
