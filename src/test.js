@@ -13,7 +13,7 @@ function getErrorObject() {
 
 function getCallerInfo() {
     var err = getErrorObject();
-    var caller_line = err.stack.split("\n")[5];
+    var caller_line = err.stack.split("\n")[4];
     var index = caller_line.indexOf("at ");
     var clean = caller_line.slice(caller_line.indexOf("at ") + "Object.Assertion Test".length + 5, caller_line.length);
     clean = clean.substr(clean.lastIndexOf(".js") + 4);
@@ -30,7 +30,7 @@ function getCallerInfo() {
 exports.assert = function (val) {
     if (!val) {
         var info = getCallerInfo();
-        var err = new Error("Expected true, but got false (at line " + info.line, ", column " + info.column + ")");
+        throw new Error("Expected true, but got false (at line " + info.line + ", column " + info.column + ")");
     }
 };
 

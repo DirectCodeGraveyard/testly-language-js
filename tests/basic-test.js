@@ -23,6 +23,6 @@ module.exports = function (suite) {
         test.assert(5 == 5);
         test.assert("Hello" == "Hello");
         test.assert("Go" != "No");
-        test.assert("LOL".toLowerCase() == "lol" == "LOL" == "LoL" == "lOL" == "LOl");
+        test.assert("LOL".toLowerCase() == "lol");
     });
 };

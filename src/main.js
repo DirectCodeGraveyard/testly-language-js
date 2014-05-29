@@ -38,11 +38,10 @@ if (!fs.exists(argv.testdir) || !fs.isDir(argv.testdir)) {
 
 var listener = function (event) {
     if (event.type === "passed") {
-        console.log("[" + event.suiteName + "]" + "[" + event.testName + "] " + "Passed".green);
+        console.log("\u2713".green + " " + event.suiteName + " -> " + event.testName);
     } else if (event.type == "failed") {
         var err = event.err;
-        console.log("[" + event.testName + "] " + err.message);
-        console.log("[" + event.testName + "] " + "Failed".red);
+        console.log("\u2717".red + " " + event.suiteName + " -> " + event.testName + " (" + err.message + ")");
     }
 };
 
