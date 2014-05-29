@@ -1,11 +1,14 @@
 /**
  * Test Utilities
- */ exports.fail = function () {
+ */
+exports.fail = function () {
     throw new Error("Test Failed");
 };
+
 function getErrorObject() {
     return new Error();
 }
+
 function getCallerInfo() {
     var err = getErrorObject();
     var caller_line = err.stack.split("\n")[4];
@@ -21,6 +24,7 @@ function getCallerInfo() {
         column: column
     };
 }
+
 exports.assert = function (val, message) {
     var failmsg = message ? message : "Expected true, but got false";
     
@@ -29,6 +33,7 @@ exports.assert = function (val, message) {
         throw new Error(failmsg + " (at line " + info.line + ", column " + info.column + ")");
     }
 };
+
 exports.shouldFail = function (test) {
     try {
         test();
