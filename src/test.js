@@ -1,54 +1,44 @@
 /**
  * Test Utilities
  */
-var AssertThat = function (actual) {
-    this.is = function (expected) {
-        if (actual != expected) {
-            throw new Error("Expected '" + expected + "', but got '" + actual + "'");
-        }
-        return this;
-    };
-    
-    this.isNot = function (expected) {
-        if (actual == expected) {
-            throw new Error("Expected '" + expected + "', but got '" + actual + "'");
-        }
-        return this;
-    };
-    
-    this.and = function (b) {
-        if (typeof b !== "undefined" && !(actual && b)) {
-            throw new Error("Expected true, but got false");
-        }
-        return this;
-    };
-    
-    this.isLessThan = function (greatest) {
-        if (!(actual < greatest)) {
-            throw new Error("Expected '" + actual + "' to be less than '" + greatest + "'");
-        }
-        return this;
-    };
-    
-    this.isGreaterThan = function (least) {
-        if (!(actual > least)) {
-            throw new Error("Expected '" + actual + "' to be greater than '" + least + "'");
-        }
-        return this;
-    };
-    
-    this.doesContain = function (part) {
-        if (actual.toString().indexOf(part) == -1) {
-            throw new Error("Expected '" + actual + "' to contains '" + part + "'");
-        }
-        return this;
-    };
-};
 
 exports.fail = function () {
     throw new Error("Test Failed");
 };
 
-exports.that = function (val) {
-    return new AssertThat(val);
+
+function getErrorObject() {
+    return new Error();
+}
+
+function getCallerInfo() {
+    var err = getErrorObject();
+    var caller_line = err.stack.split("\n")[5];
+    var index = caller_line.indexOf("at ");
+    var clean = caller_line.slice(caller_line.indexOf("at ") + "Object.Assertion Test".length + 5, caller_line.length);
+    clean = clean.substr(clean.lastIndexOf(".js") + 4);
+    clean = clean.substr(0, clean.lastIndexOf(")"));
+    var split = clean.split(":");
+    var line = Number(split[0]);
+    var column = Number(split[1]);
+    return {
+        line: line,
+        column: column
+    };
+}
+
+exports.assert = function (val) {
+    if (!val) {
+        var info = getCallerInfo();
+        var err = new Error("Expected true, but got false (at line " + info.line, ", column " + info.column + ")");
+    }
+};
+
+exports.shouldFail = function (test) {
+    try {
+        test();
+    } catch (e) {
+        return;
+    }
+    throw new Error("Expected Test to Fail!");
 };

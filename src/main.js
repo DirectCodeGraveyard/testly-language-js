@@ -2,15 +2,15 @@
 var fs = require("fs-utils");
 
 var yargs = require('yargs')
-    .usage("Run your tests like there is no tomorrow.\nUsage: testly [options]")
-    .example("testly --testdir tests/ --json", "Run the tests in tests/ and output a JSON report to report.json")
-    .default("testdir", "tests/")
-    .default("json", false)
-    .describe("testdir", "Directory to find Tests")
-    .alias("d", "testdir")
-    .alias("h", "help")
-    .describe("help", "Prints this Help Message")
-    .describe("debug", "Enables Debugging");
+   .usage("Run your tests like there is no tomorrow.\nUsage: testly [options]")
+   .example("testly --testdir tests/ --json", "Run the tests in tests/ and output a JSON report to report.json")
+   .default("testdir", "tests/")
+   .default("json", false)
+   .describe("testdir", "Directory to find Tests")
+   .alias("d", "testdir")
+   .alias("h", "help")
+   .describe("help", "Prints this Help Message")
+   .describe("debug", "Enables Debugging");
 
 var argv = yargs.argv;
 
@@ -37,7 +37,7 @@ if (!fs.exists(argv.testdir) || !fs.isDir(argv.testdir)) {
 }
 
 var listener = function (event) {
-    if (event.type == "passed") {
+    if (event.type === "passed") {
         console.log("[" + event.suiteName + "]" + "[" + event.testName + "] " + "Passed".green);
     } else if (event.type == "failed") {
         var err = event.err;
