@@ -1,6 +1,6 @@
 {
     "name": "testly",
-    "version": "0.0.9",
+    "version": "0.1.0",
     "description": "Testly is a polyglot testing framework with implementations for many languages.",
     "main": "src/lib.js",
     "scripts": {
