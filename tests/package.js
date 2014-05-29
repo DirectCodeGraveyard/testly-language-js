@@ -11,7 +11,11 @@ module.exports = function (suite) {
         pkginfo = fs.readJSONSync("package.json");
     });
     
-    suite.define("Ensure Version is Valid", function () {
+    suite.define("Verify Version", function () {
         test.assert(semver.valid(pkginfo.version));
+    });
+    
+    suite.define("Verify Name", function () {
+        test.assert(pkginfo.name == "testly");
     });
 };
