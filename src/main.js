@@ -23,7 +23,7 @@ if (argv.help) {
 
 console.debug = function (message) {
     if (debug)
-        console.log("[Debugging] " + message);
+        console.log("\u2605 " + message);
 };
 
 var path = require("path");
@@ -38,10 +38,10 @@ if (!fs.exists(argv.testdir) || !fs.isDir(argv.testdir)) {
 
 var listener = function (event) {
     if (event.type === "passed") {
-        console.log("\u2713".green + " " + event.suiteName + " -> " + event.testName);
+        console.log("\u2713".green + " " + event.suiteName + " \u2192 " + event.testName);
     } else if (event.type == "failed") {
         var err = event.err;
-        console.log("\u2717".red + " " + event.suiteName + " -> " + event.testName + " (" + err.message + ")");
+        console.log("\u2717".red + " " + event.suiteName + " \u2192 " + event.testName + " (" + err.message + ")");
     }
 };
 
