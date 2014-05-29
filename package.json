@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/testly/language-js.git"
+    "url": "git://github.com/impl-nodejs/language-js.git"
   },
   "keywords": [
     "tests",
@@ -26,7 +26,7 @@
   "author": "Kenneth Endfinger",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/testly/language-js/issues"
+    "url": "https://github.com/testly/impl-nodejs/issues"
   },
   "dependencies": {
     "async": "~0.8.0",
