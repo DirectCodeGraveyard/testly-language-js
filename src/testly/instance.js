@@ -46,9 +46,24 @@ Testly.prototype.run = function () {
         init();
 
         Object.keys(tests).forEach(function (testName) {
+            var testFunc = tests[testName];
             try {
-                tests[testName]();
+                console._log = console.log;
+                console.log = function (input) {
+                    if (this.caller == testFunc) {
+                        executeEvent(listeners, {
+                            type: "output",
+                            testName: testName,
+                            suiteName: suiteName,
+                            line: input
+                        });
+                    } else {
+                        console._log(input);
+                    }
+                };
+                testFunc();
             } catch (e) {
+                console.log = console._log;
                 executeEvent(listeners, {
                     type: "failed",
                     testName: testName,
@@ -63,6 +78,7 @@ Testly.prototype.run = function () {
                 });
                 return; // Return from the Function
             }
+            console.log = console._log;
             executeEvent(listeners, {
                 type: "passed",
                 testName: testName,

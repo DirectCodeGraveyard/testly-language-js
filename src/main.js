@@ -23,7 +23,7 @@ if (argv.help) {
 
 console.debug = function (message) {
     if (debug)
-        console.log("\u2605 " + message);
+        console.log("\u2605".blue + " " + message);
 };
 
 var path = require("path");
@@ -42,6 +42,9 @@ var listener = function (event) {
     } else if (event.type == "failed") {
         var err = event.err;
         console.log("\u2717".red + " " + event.suiteName + " \u2192 " + event.testName + " (" + err.message + ")");
+    } else if (event.type == "output") {
+        var line = event.line;
+        console.log("\u2605 " + line);
     }
 };
 
@@ -59,7 +62,7 @@ var testly = require("./testly/run.js")({
 var results = testly.run();
 
 if (argv.json) {
-    console.log("Creating JSON Report".blue);
+    console.log("\u2605".yellow + " " + "Creating JSON Report");
     fs.writeJSON(typeof argv.json != "boolean" ? argv.json : "report.json", results, {indention: 4});
     console.debug("JSON Report Created".blue);
 }
