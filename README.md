@@ -1,4 +1,4 @@
-# Testly for JavaScript
+# Testly for NodeJS
 Testly is an agile and polyglot testing framework. This is the NodeJS implementation.
 
 ## Usage
