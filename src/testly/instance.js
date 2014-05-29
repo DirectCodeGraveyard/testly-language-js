@@ -71,7 +71,7 @@ Testly.prototype.run = function () {
             results.push({
                 suiteName: suiteName,
                 testName: testName,
-                state: "failed"
+                state: "passed"
             });
         });
     });
