@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 var fs = require("fs-utils");
+var path = require("path");
+require("colors");
+var nodefs = require("fs");
 
 var yargs = require('yargs')
    .usage("Run your tests like there is no tomorrow.\nUsage: testly [options]")
@@ -16,20 +19,19 @@ var argv = yargs.argv;
 
 var debug = argv.debug;
 
-if (argv.help) {
-    yargs.showHelp();
-    return;
-}
-
 console.debug = function (message) {
     if (debug)
         console.log("\u2605".blue + " " + message);
 };
 
-var path = require("path");
-require("colors");
+console.debug("ENTER".green);
+console.debug("args: " + process.argv.join(" "));
 
-var nodefs = require("fs");
+if (argv.help) {
+    console.debug("Printing Help");
+    yargs.showHelp();
+    return;
+}
 
 if (!fs.exists(argv.testdir) || !fs.isDir(argv.testdir)) {
     console.error("ERROR".red + ": The directory '" + argv.testdir + "' does not exist or is not a directory!");
@@ -37,6 +39,7 @@ if (!fs.exists(argv.testdir) || !fs.isDir(argv.testdir)) {
 }
 
 var listener = function (event) {
+    console.debug("Event: " + event.type);
     if (event.type === "passed") {
         console.log("\u2713".green + " " + event.suiteName + " \u2192 " + event.testName);
     } else if (event.type == "failed") {
@@ -46,7 +49,7 @@ var listener = function (event) {
         var line = event.line;
         console.log("\u2605 " + line);
     } else if (event.type == "run") {
-        console.log("\u2605".blue + " " + event.suiteName + " \u2192 " + event.testName);
+        console.debug(event.suiteName + " \u2192 " + event.testName + " \u2192 Running");
     }
 };
 
@@ -68,3 +71,5 @@ if (argv.json) {
     fs.writeJSON(typeof argv.json != "boolean" ? argv.json : "report.json", results, {indention: 4});
     console.debug("JSON Report Created".blue);
 }
+
+console.debug("EXIT".green);

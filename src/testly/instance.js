@@ -8,6 +8,51 @@ var executeEvent = function (listeners, event) {
     });
 };
 
+/**
+ * Test Utilities
+ */
+var fail = function () {
+    throw new Error("Test Failed");
+};
+
+function getErrorObject() {
+    return new Error();
+}
+
+function getCallerInfo() {
+    var err = getErrorObject();
+    var caller_line = err.stack.split("\n")[4];
+    var clean = caller_line.slice(caller_line.indexOf("at ") + "Object.Assertion Test".length + 5, caller_line.length);
+    clean = clean.substr(clean.lastIndexOf(".js") + 4);
+    clean = clean.substr(0, clean.lastIndexOf(")"));
+    var split = clean.split(":");
+    var line = Number(split[0]);
+    var column = Number(split[1]);
+    return {
+        line: line,
+        column: column
+    };
+}
+
+var assert = function (val, message) {
+    var failmsg = message ? message : "Expected true, but got false";
+    
+    if (!val) {
+        var info = getCallerInfo();
+        throw new Error(failmsg + " (at line " + info.line + ", column " + info.column + ")");
+    }
+};
+
+var shouldFail = function (test) {
+    try {
+        test();
+    } catch (e) {
+        return;
+    }
+    throw new Error("Expected Test to Fail!");
+};
+
+
 Testly.prototype.run = function () {
     var config = this.config || {};
     var testFiles = config.tests || [];
@@ -48,27 +93,25 @@ Testly.prototype.run = function () {
         Object.keys(tests).forEach(function (testName) {
             var testFunc = tests[testName];
             try {
-                console._log = console.log;
-                console.log = function (input) {
-                    if (this.caller == testFunc) {
-                        executeEvent(listeners, {
-                            type: "output",
-                            testName: testName,
-                            suiteName: suiteName,
-                            line: input
-                        });
-                    } else {
-                        console._log(input);
-                    }
-                };
                 executeEvent(listeners, {
                     type: "run",
                     testName: testName,
                     suiteName: suiteName
                 });
-                testFunc();
+                testFunc({
+                    log: function (line) {
+                        executeEvent(listeners, {
+                            type: "output",
+                            testName: testName,
+                            suiteName: suiteName,
+                            line: line
+                        });
+                    },
+                    fail: fail,
+                    shouldFail: shouldFail,
+                    assert: assert
+                });
             } catch (e) {
-                console.log = console._log;
                 executeEvent(listeners, {
                     type: "failed",
                     testName: testName,
@@ -83,7 +126,6 @@ Testly.prototype.run = function () {
                 });
                 return; // Return from the Function
             }
-            console.log = console._log;
             executeEvent(listeners, {
                 type: "passed",
                 testName: testName,

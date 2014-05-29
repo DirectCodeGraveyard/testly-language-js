@@ -1,4 +1,3 @@
-var test = require("../src/lib.js").test;
 var semver = require("semver");
 var fs = require("fs-utils");
 
@@ -11,11 +10,11 @@ module.exports = function (suite) {
         pkginfo = fs.readJSONSync("package.json");
     });
     
-    suite.define("Verify Version", function () {
+    suite.define("Verify Version", function (test) {
         test.assert(semver.valid(pkginfo.version));
     });
     
-    suite.define("Verify Name", function () {
+    suite.define("Verify Name", function (test) {
         test.assert(pkginfo.name == "testly");
     });
 };
