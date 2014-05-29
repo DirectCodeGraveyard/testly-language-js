@@ -45,6 +45,8 @@ var listener = function (event) {
     } else if (event.type == "output") {
         var line = event.line;
         console.log("\u2605 " + line);
+    } else if (event.type == "run") {
+        console.log("\u2605".blue + " " + event.suiteName + " \u2192 " + event.testName);
     }
 };
 

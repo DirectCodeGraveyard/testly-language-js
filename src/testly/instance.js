@@ -61,6 +61,11 @@ Testly.prototype.run = function () {
                         console._log(input);
                     }
                 };
+                executeEvent(listeners, {
+                    type: "run",
+                    testName: testName,
+                    suiteName: suiteName
+                });
                 testFunc();
             } catch (e) {
                 console.log = console._log;
