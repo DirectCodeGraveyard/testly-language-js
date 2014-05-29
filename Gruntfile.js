@@ -6,7 +6,7 @@ module.exports = function (grunt) {
         shell.exec("node src/main.js --testdir=tests/ --json=test-report.json");
     });
     
-    grunt.registerTask("test", [ "check-version", "run-tests" ]);
+    grunt.registerTask("test", [ "run-tests" ]);
 
     grunt.registerTask("update", function () {
         shell.exec("npm update");
@@ -14,14 +14,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask("publish", [ "update-version" ], function () {
         shell.exec("npm publish");
-    });
-    
-    grunt.registerTask("check-version", function () {
-        var pkginfo = grunt.file.readJSON("package.json");
-        if (!semver.valid(pkginfo.version)) {
-            grunt.log.error("Specified Version '" + pkginfo.version + "' is not valid.");
-            return false;
-        }
     });
     
     grunt.registerTask("update-version", function () {
