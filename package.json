@@ -1,7 +1,7 @@
 {
     "name": "testly",
     "version": "0.0.9",
-    "description": "Testly is a polygot testing framework with implementations for many languages.",
+    "description": "Testly is a polyglot testing framework with implementations for many languages.",
     "main": "src/lib.js",
     "scripts": {
         "test": "node -e \"var g = require('grunt'); g.cli.tasks = ['test']; g.cli()\""

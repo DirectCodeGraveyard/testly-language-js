@@ -12,7 +12,7 @@ module.exports = function (grunt) {
         shell.exec("npm update");
     });
 
-    grunt.registerTask("publish", function () {
+    grunt.registerTask("publish", [ "update-version" ], function () {
         shell.exec("npm publish");
     });
     
