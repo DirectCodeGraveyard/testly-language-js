@@ -1,5 +1,5 @@
 # Testly for JavaScript
-Testly is an agile and polygot testing framework. This is the JavaScript implementation.
+Testly is an agile and polyglot testing framework. This is the NodeJS implementation.
 
 ## Usage
 Here is a basic example:
